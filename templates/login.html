@@ -1,0 +1,101 @@
+{% extends "base.html "%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+    {% if request.method == 'GET' %}
+    <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+        <p class="ssolink"></p>
+    </div>
+
+    <div class="formbg-outer">
+        <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+                <span class="padding-bottom--15">Connectez-vous à votre compte</span>
+
+                <form id="stripe-login" action="{{url_for('login')}}" method="POST">
+                    <div class="field padding-bottom--24">
+                        {{ form.hidden_tag() }}
+                        {{ wtf.form_field(form.email) }}
+        
+                        <!-- <label for="emailId">Email</label>
+                        <input id="emailId" name="e_mail" type="email" required> -->
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <div class="grid--50-50">
+                            <!-- <label for="passwordId">Mot de passe</label> -->
+                        </div>
+                        {{ wtf.form_field(form.password) }}
+                        <!-- <input id="passwordId" type="password" name="password" required> -->
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+ 
+
+    {% elif request.method == 'POST' and message == "" %}
+
+    <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+        <p class="ssolink"></p>
+    </div>
+
+    <div class="formbg-outer">
+        <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+                <span class="padding-bottom--15">Reconnaissance faciale</span>
+
+                <form action="{{url_for('profile', userId = userId)}}" method="GET">
+                    <span class="face_span"><i>Veuillez bien rester devant la camera!</i></span>
+                    <div class="camera">
+                        <img id="stripe-login" src="{{ url_for('login_video', userId = userId) }}" />
+                    </div>  
+                    
+                    <span class="face_span"><i>Une fois l'image figée, validez!</i></span>
+                    <div class="field padding-bottom--24">
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {% else %}
+
+    <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+        <p class="ssolink">{{ message }}</p>
+    </div>
+
+    <div class="formbg-outer">
+        <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+                <span class="padding-bottom--15">Connectez-vous à votre compte</span>
+
+                <form id="stripe-login" action="{{url_for('login')}}" method="POST">
+                    <div class="field padding-bottom--24">
+                        <label for="emailId">Email</label>
+                        <input id="emailId" name="e_mail" type="email" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <div class="grid--50-50">
+                            <label for="passwordId">Mot de passe</label>
+                        </div>
+                        <input id="passwordId" type="password" name="password" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+ 
+    {% endif %}
+
+{% endblock content %}

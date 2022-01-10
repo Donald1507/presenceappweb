@@ -1,0 +1,93 @@
+{% extends "base.html "%}
+
+{% block content %}
+
+
+    {% if request.method == 'GET' %}
+    <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+        <p class="ssolink"></p>
+    </div>
+
+    <div class="formbg-outer">
+        <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+                <span class="padding-bottom--15">Validation de votre compte</span>
+
+                <form id="stripe-login" action="{{ url_for('register') }}" method="POST">
+                    <div class="field padding-bottom--24">
+                        <label for="emailId">Email</label>
+                        <input id="emailId" name="e_mail" type="email" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <label for="passwordId">Mot de passe</label>
+                        <input id="passwordId" type="password" name="password" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <label for="checkPasswordId">Confirmation du mot de passe</label>
+                        <input id="checkPasswordId" type="password" name="checkPassword" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+    {% elif request.method == 'POST' and message == "" %}
+    
+    <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+        <p class="ssolink"></p>
+    </div>
+
+    <div class="formbg-outer">
+        <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+                <span class="padding-bottom--15">Reconnaissance faciale</span>
+                <span class="face_span"><i>Veuillez bien rester devant la camera pendant 30 secondes!</i></span>
+                <div class="camera">
+                    <img id="stripe-login" src="{{ url_for('register_video', userId = userId ) }}"" />
+                </div>                
+            </div>
+        </div>
+    </div>
+
+
+    {% else %}
+    <div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+        <p class="ssolink"> {{ message }} </p>
+    </div>
+
+    <div class="formbg-outer">
+        <div class="formbg">
+            <div class="formbg-inner padding-horizontal--48">
+                <span class="padding-bottom--15">Validation de votre compte</span>
+
+                <form id="stripe-login" action="{{ url_for('register') }}" method="POST">
+                    <div class="field padding-bottom--24">
+                        <label for="emailId">Email</label>
+                        <input id="emailId" name="e_mail" type="email" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <label for="passwordId">Mot de passe</label>
+                        <input id="passwordId" type="password" name="password" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <label for="checkPasswordId">Confirmation du mot de passe</label>
+                        <input id="checkPasswordId" type="password" name="checkPassword" required>
+                    </div>
+                    <div class="field padding-bottom--24">
+                        <button type="submit">Valider</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    
+
+    {% endif %}
+
+
+{% endblock content %}

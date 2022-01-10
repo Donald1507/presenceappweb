@@ -1,0 +1,105 @@
+{% extends "base.html "%}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+<script>
+    function pause(ms) 
+    {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    async function afficherDate() 
+    {
+      while(true) 
+      {
+        await pause(1000);
+        var cejour = new Date();
+        var options = {weekday: "long", year: "numeric", month: "long", day: "2-digit"};
+        var date = cejour.toLocaleDateString("fr-FR", options);
+        var heure = ("0" + cejour.getHours()).slice(-2) + ":" + ("0" + cejour.getMinutes()).slice(-2) + ":" + ("0" + cejour.getSeconds()).slice(-2);
+        var dateheure = date;
+        var dateheure = dateheure.replace(/(^\w{1})|(\s+\w{1})/g, lettre => lettre.toUpperCase());
+        document.getElementById('dateheure').innerHTML = dateheure;
+      }
+    }
+    afficherDate();
+
+    function saveTime()
+    {
+
+    }
+</script>
+<span id="dateheure"></span> 
+
+<div>
+  <h1>Bienvenue {{ lastname }} {{ firstnames }}</h1>
+</div>
+
+{% if request.method == 'GET' %}
+
+<section>
+  <div class="formbg-outer padding-top--24" id="emargement">
+    <div class="formbg">
+      <div class="formbg-inner padding-horizontal--48">
+          <form action="{{url_for('profile', userId = userId)}}" method="POST">
+            <span class="padding-bottom--15">Émargement</span>
+            
+            <div class="field padding-bottom--24">
+              <input type="submit" name="emargement" value="Marquer l'heure de départ" />
+            </div>
+            <div class="field">
+              <input type="submit" name="emargement" value="Marquer l'heure de fin" />
+            </div>
+             
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="mapouter">
+        <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=abidjan,%20cidfor&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+          <a href="https://123movies-org.net"></a>
+          <br>
+          <!-- <style>.mapouter{position:relative;text-align:right;height:500px;width:769px;}</style>
+          <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:769px;}</style> -->
+  </div>
+</section>
+
+{% else %}
+
+<div class="box-root padding-top--48 padding-bottom--24 flex-flex flex-justifyContent--center">
+  <p class="ssolink">{{ message }}</p>
+</div>
+
+<section>
+  <div class="formbg-outer padding-top--24" id="emargement">
+    <div class="formbg">
+      <div class="formbg-inner padding-horizontal--48">
+          <form action="{{url_for('profile', userId = userId)}}" method="POST">
+            <span class="padding-bottom--15">Émargement</span>
+            
+            <div class="field padding-bottom--24">
+              <input type="submit" name="emargement" value="Marquer l'heure de départ" />
+            </div>
+            <div class="field">
+              <input type="submit" name="emargement" value="Marquer l'heure de fin" />
+            </div>
+ 
+          </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="mapouter">
+        <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=abidjan,%20cidfor&t=k&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+          <a href="https://123movies-org.net"></a>
+          <br>
+          <!-- <style>.mapouter{position:relative;text-align:right;height:500px;width:769px;}</style>
+          <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:769px;}</style> -->
+  </div>
+</section>
+
+{% endif %}
+
+{% endblock content %}
